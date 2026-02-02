@@ -29,6 +29,11 @@
             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
         </div>
     </div>
+    <div style="text-align: center; margin-top: 20px;">
+    <h3 style="color: white;">Request a Song</h3>
+    <input type="text" id="songName" placeholder="Type song here..." style="padding: 10px; border-radius: 5px;">
+    <button onclick="sendRequest()" style="padding: 10px; background: #00d4ff; border-radius: 5px; cursor: pointer;">Send</button>
+</div>
 <audio id="radio-stream">
   <source src="https://streamer.radio.co/s895c9762a/listen" type="audio/mpeg">
 </audio>
@@ -52,7 +57,30 @@ const volumeSlider = document.getElementById("volume-slider");
 volumeSlider.addEventListener("input", () => {
   audio.volume = volumeSlider.value;
 });
+ function sendRequest() {
+    const webhookURL = "https://discord.com/api/webhooks/1467974708107415736/pe3cquvh_Lj2X2BDWYfAOmK_p8Qxq41IWiOxJo6xy96ObFgS984tDCjlNdm7Ghnm-5nj";
+      const name = document.getElementById('firstName').value || "Anonymous";
+    const shout = document.getElementById('shoutOut').value || "None";
+    const song = document.getElementById('songName').value || "None";
+
+    const message = {
+        content: "📻 **New Request for Truck Beat FM**\n**From:** " + name + "\n**Shout out:** " + shout + "\n**Song:** " + song
+    };
+
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(message)
+    })
+    .then(() => {
+        alert("Request submitted!");
+        document.getElementById('firstName').value = "";
+        document.getElementById('shoutOut').value = "";
+        document.getElementById('songName').value = "";
+    });
+}
 </script>
 </body>
 
 </html>
+
