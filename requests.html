@@ -3,78 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truck Beat FM</title>
-     <link rel="icon" type="image/png" href="favicon.png">
+    <title>Truck Beat FM - Requests</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="schedule.html">SCHEDULE</a></li>
-          <li><a href="requests.html" class="active">REQUESTS</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="schedule.html">SCHEDULE</a></li>
+            <li><a href="requests.html" class="active">REQUESTS</a></li>
         </ul>
     </nav>
 
-<div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-    <input type="text" id="firstName" placeholder="First name" style="padding: 12px; border-radius: 5px; border: none;">
-    <input type="text" id="shoutOut" placeholder="Shout out" style="padding: 12px; border-radius: 5px; border: none;">
-    <textarea id="songName" placeholder="Song name" style="padding: 12px; border-radius: 5px; border: none; height: 80px;"></textarea>
-    <button type="button" onclick="sendRequest()" style="background-color: #4a90e2; color: white; padding: 12px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold;">Submit Request</button>
-</div>
+    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+        <input type="text" id="firstName" placeholder="First name" style="padding: 12px; border-radius: 5px; border: none;">
+        <input type="text" id="shoutOut" placeholder="Shout out" style="padding: 12px; border-radius: 5px; border: none;">
+        <textarea id="songName" placeholder="Song name" style="padding: 12px; border-radius: 5px; border: none; height: 80px;"></textarea>
+        <button type="button" onclick="sendRequest()" style="background-color: #4a90e2; color: white; padding: 12px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold;">Submit Request</button>
+    </div>
 
-<audio id="radio-stream">
-    <source src="https://streamer.radio.co/s895c9762a/listen" type="audio/mpeg">
+    <script>
+        function sendRequest() {
+            const webhookURL = "https://discord.com/api/webhooks/1467974708107415736/pe3cquvh_Lj2X2BDWYfAOWk_p8Qxq41IWiOxJo6xy960bfgS984tDCjINdw7Ghnm-5nj";
+            
+            const nameValue = document.getElementById('firstName').value || "Anonymous";
+            const shoutValue = document.getElementById('shoutOut').value || "None";
+            const songValue = document.getElementById('songName').value || "None";
 
-<script>
-    function sendRequest() {
-        const webhookURL = "https://discord.com/api/webhooks/1467974708107415736/pe3cquvh_Lj2X2BDWYfAOWk_p8Qxq41IWiOxJo6xy960bfgS984tDCjINdw7Ghnm-5nj";
-        
-        const name = document.getElementById('firstName').value || "Anonymous";
-        const shout = document.getElementById('shoutOut').value || "None";
-        const song = document.getElementById('songName').value || "None";
+            const message = {
+                content: "📻 **New Request for Truck Beat FM**\\n**From:** " + nameValue + "\\n**Shout out:** " + shoutValue + "\\n**Song:** " + songValue
+            };
 
-        const message = {
-            content: "📻 **New Request for Truck Beat FM**\n**From:** " + name + "\n**Shout out:** " + shout + "\n**Song:** " + song
-        };
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Request submitted to the DJ!");
+                    document.getElementById('firstName').value = "";
+                    document.getElementById('shoutOut').value = "";
+                    document.getElementById('songName').value = "";
+                } else {
+                    alert("Error: Could not send to Discord. Check your Webhook URL.");
+                }
+            })
+            .catch(err => {
+                alert("Network error. Please try again.");
+                console.error(err);
+            });
+        }
+    </script>
 
-        fetch(webhookURL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(message)
-        })
-        .then(() => {
-            alert("Request submitted to the DJ!");
-            document.getElementById('firstName').value = "";
-            document.getElementById('shoutOut').value = "";
-            document.getElementById('songName').value = "";
-        })
-        .catch(err => alert("Error sending request."));
-    }
-
-    // Radio Player Logic
-    const audio = document.getElementById("radio-stream");
-    const playBtn = document.querySelector(".play-button");
-    let isPlaying = false;
-
-    if(playBtn) {
-        playBtn.addEventListener("click", () => {
-            if (!isPlaying) {
-                audio.play();
-                isPlaying = true;
-                playBtn.classList.add("pause");
-            } else {
-                audio.pause();
-                isPlaying = false;
-                playBtn.classList.remove("pause");
-            }
-        });
-    }
-</script>
 </body>
 </html>
-</body>
-
-</html>
-
