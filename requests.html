@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Beat FM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="schedule.html">SCHEDULE</a></li>
+          <li><a href="requests.html" class="active">REQUESTS</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="player-card">
+             <div class="ring"></div>
+            <h1>Truck Beat FM</h1>
+         
+        <h2 style="color: white; margin-top: 20px;">Song Requests</h2>
+
+<form id="requestsForm" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+    <input id="firstName" type="text" placeholder="First name" style="padding: 12px; border-radius: 5px; border: none; width: 100%; box-sizing: border-box;">
+    
+    <input id="shoutOut" type="text" placeholder="Shout out" style="padding: 12px; border-radius: 5px; border: none; width: 100%; box-sizing: border-box;">
+    
+    <textarea id="songName" placeholder="Song name" style="padding: 12px; border-radius: 5px; border: none; height: 120px; width: 100%; box-sizing: border-box; font-family: sans-serif;"></textarea>
+    
+    <button type="submit" style="background-color: #4a90e2; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Submit</button>
+</form>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
